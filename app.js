@@ -64,3 +64,21 @@ const disappear = (event) =>{
 }
 
 box4.addEventListener("click", disappear);
+
+
+const box5 = document.getElementById("5");
+const circularise=()=>{
+          const boxer = document.querySelector(".box")
+          for(box of boxes){
+                    box.style.borderRadius = box.style.borderRadius ==="50%" ? "" : "50%";
+                    /**
+                     if (box.style.borderRadius == "50%"){
+                        box.style.borderRadius ="";
+                    }
+                    else{
+                        box.style.borderRadius == "50%";      
+                    }  
+                    **/             
+          }
+}
+box5.addEventListener("click", circularise);

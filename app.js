@@ -82,3 +82,27 @@ const circularise=()=>{
           }
 }
 box5.addEventListener("click", circularise);
+
+const box6 = document.getElementById("6");
+document.addEventListener("mousemove",(event)=>{
+          let x = event.clientX;
+          let y = event.clientY
+          box6.style.fontSize ="50px";
+          box6.innerHTML =`X:${x}<br>Y::${y}`
+})
+
+const box7 =document.getElementById("7");
+const input7 = document.querySelector(".container2 .seven input")
+const button7 = document.querySelector(".container2 .seven button")
+
+const write = () =>{
+          box7.innerText = `${input7.value}`;
+}
+
+input7.addEventListener("click", write)
+
+const box8 =document.getElementById("8");
+const input8 = document.querySelector(".eight input")
+input8.addEventListener("keydown", (event) =>{
+
+})

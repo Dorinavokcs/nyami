@@ -1,42 +1,29 @@
-:root{
-          --bg1: hsl(343, 78%, 56%);
-          --bg2: hsl(204, 70%, 50%);
-      }
-      *{margin:0; padding: 0; box-sizing: border-box;}
-      img{width: 100%;}
-      .container{
-          height: 100vh;
-          display: flex;
-          flex-direction: column;
-          row-gap: 2rem;
-          justify-content: center;
-          align-items: center;
-          background-image: linear-gradient(to right, var(--bg1), var(--bg2));
-      }
-      .matrix{
-          background-color: rgb(100,100,100);
-          height: 50vh;
-          width: 50vh;
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          grid-template-rows: repeat(5, 1fr);
-      }
-      .field{
-          box-shadow: 0 0 10px 1px #000;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          animation-name: rotateBox;
-          animation-duration: .3s;
-          animation-delay: 3s;
-          /*animation-iteration-count: infinite;*/
-      }
-      @keyframes rotateBox {
-          from {transform: rotate(0deg);}
-          to {transform: rotate(180deg);}
-      }
-      button{
-          width: 5rem;
-          font-size: 1.2rem;
-          background-color:cadetblue;
-      }
+*{margin:0; padding: 0; box-sizing: border-box;}
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: linear-gradient(rgb(6, 26, 62), rgb(14, 217, 235));
+}
+.container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap:1rem;
+}
+.box{
+    height: 10vh;
+    width: 10vh;
+    box-shadow: 0 0 10px 1px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: bold;
+    scale:1;
+    transition: scale .3s;
+}
+.blur{
+    filter:blur(5px);
+}

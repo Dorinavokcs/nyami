@@ -1,45 +1,66 @@
-const matrix = document.querySelector(".matrix");
-// A render() eljárás készíti el a matrix-osztályú keretben a field osztályú négyzeteket.
-function render(){
-    matrix.innerHTML = "";
-    for (let i = 0; i < 25; i++){
-        const field = document.createElement("div");
-        // Eseményfigyelőt kötünk minden egyes új négyzetre.
-        // Az Eseményfigyelő a click eseményre meghívja a coloring nevű színező eljárást.
-        //Fontos! Itt csak az eljárás neve szerepel, tehát ez nem eljáráshívás, hanem callback
-        // eljárás, mert majd az esemény bekövetkeztével az eseménykezelő hívja meg.
-        field.addEventListener("click", coloring)
-        field.classList.add("field");
-        matrix.appendChild(field)
+const container = document.querySelector(".container");
+container.innerHTML = "";
+for (let i = 1; i < 10; i++){  
+    let r = Math.floor(Math.random()*256);
+    let g = Math.floor(Math.random()*256);
+    let b = Math.floor(Math.random()*256);  
+    container.innerHTML += `<div class="box" id="${i}">${i}</div>`;
+    const boxId = document.getElementById(`${i}`);
+    boxId.style.backgroundColor = `rgb(${r},${g},${b})`;
+}
+// 1. négyzet manipulálása:***************************************
+const box1 = document.getElementById("1");
+//let isBlurred = false;
+const blurry = (event)=>{
+    event.target.classList.toggle("blur");
+    /*
+    isBlurred = !isBlurred;
+    if (isBlurred){
+        event.target.classList.add("blur");        
+    }else{
+        event.target.classList.remove("blur");        
     }
+    */
 }
-// 0 és 255 közötti véletlen számot készítő függvény:
-function randomColor(){
-    return Math.floor(Math.random()*254+1);
+box1.addEventListener("click", blurry);
+// 2. négyzet manipulálása:***************************************
+const box2 = document.getElementById("2");
+const reduce1 = (event) => {
+    // Ternary operator egyszerű if-else kiváltására:
+    event.target.style.scale = event.target.style.scale === "0.4" ? "1" : "0.4";
+    /*
+    if ( event.target.style.scale === "0.4"){
+        event.target.style.scale = "1";
+    }else{
+        event.target.style.scale = "0.4";
+    }
+    */
+
+}
+box2.addEventListener("mouseover", reduce1);
+// 3. négyzet manipulálása:***************************************
+const box3 = document.getElementById("3");
+const randomizeNum = (event) =>{
+    let rnd = Math.floor(Math.random()*100);
+    event.target.innerText = rnd;
+}
+box3.addEventListener("dblclick", randomizeNum);
+
+// 4. négyzet manipulálása:***************************************
+const box4 = document.getElementById("4");
+
+const visibilityBox = () => {
+    box4.style.visibility = "visible";
 }
 
-// Színező eljárás. Fontos! Az eseménykezelő (addEventListener) metódus automatikusan
-// átadja a meghívandó callback eljárásnak magát az eseményt, amelyet az event változóban találunk meg.
-function coloring(event){
-    let r = randomColor();
-    let g = randomColor();
-    let b = randomColor();
-    event.target.style.backgroundColor = `rgb(${r},${g},${b})`;
-    event.target.innerText = `${r},${g},${b}`;
+const disappear = (event) =>{
+    // Az eljárás itt eltünteti azt az elemet, amelyen az esemény bekövetkezett:
+    event.target.style.visibility = "hidden";
+    const el = event.target;
+    // A setTimeout beépített eljárásnak először adni kell egy eljárást/függvényt, amely itt láthatóvá teszi újra az elemet, utána vesszővel meg kell adni, (1000-ed sec) mennyi idő múlva hívja meg az előtte álló visibilityBox nevű eljárást. A meghívandó eljárást most nem a setTimeout-ban deklaráltam. Így az is jobban látszódhat, hogy a visibilityBox a setTimeout eljárásban, CALLBACK függvény/eljárás-ként hívódik meg. 
+    // Ez azt jelenti, hogy nem teszem ki a neve után járó () zárójeleket, mert akkor a visibilityBox azonnal meghívódna, és nem várná meg az időzítés lejártát! 
+    // Tehát a visibilityBox-ot a setTimeout eljárás hívja meg, futtatja akkor, amikor a mögötte látható időzítés lejár.
+    setTimeout(visibilityBox,1000);
 }
 
-// A gombot összekötjük egy névtelen eljárással, amely eljárást most itt helyben deklarálunk fatArrow
-// segítségével. Ez a névtelen eljárás ezt csinálja:
-// A fields állandóba teszi az összes field osztályú elemet -> nodeList
-// A forEach metódus révén, a gomb változóban sorban végig lépked a filed-osztályú elemeken, és
-// ezeken az elemeken módosítja a háttérszínt (css-feladat), és az elemek tartalmát (html-feladat).  
-const button = document.querySelector("button");
-button.addEventListener("click", () => {
-    const fields = document.querySelectorAll(".field");
-    fields.forEach(gomb => {
-        gomb.style.backgroundColor= "";
-        gomb.innerText = "";
-    })
-})
-
-render();
+box4.addEventListener("click", disappear);

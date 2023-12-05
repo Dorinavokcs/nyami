@@ -104,5 +104,5 @@ input7.addEventListener("click", write)
 const box8 =document.getElementById("8");
 const input8 = document.querySelector(".eight input")
 input8.addEventListener("keydown", (event) =>{
-
+          box6.innerText = event.key
 })
